@@ -1,7 +1,7 @@
 ---
-title: " "
-author: Chris Stantis
-date: now
+title: Week 4 report
+author: Paulo Vitor Mendes
+date: 07/02/2026
 format: html
 self-contained: true
 execute: 
@@ -14,6 +14,9 @@ fig-dpi: 600
 ## Introduction
 
 This time, load the packages *you* think you need and import the data yourself (hemoglobin.csv). Write that code into the chunk below. Hint: you can always edit if you find you're missing a package you need.
+
+library(ggplot2)
+
 
 Name the dataframe whatever makes sense to you (do you like calling it 'df'? Or do you prefer something more descriptive, like 'hemoglobin' or 'altitude'?)
 
@@ -35,11 +38,66 @@ Now, what information would you use in basic reporting of the data? Re-cycling c
 ```{r}
 # create summary data you think you need for reporting
 
-```
+Beall et al. (2002) compiled data (n=799) comparing hemoglobin levels in male and female individuals across four high-altitude populations, including Ethiopian, Andean, Tibetan, and U.S. (white) groups.
+
+Variables include:
+  
+Hemoglobin: continuous variable with a mean of 15.21 and a standard deviation of 2.30.
+
+Population group: nominal variable. The dataset contains four group categories, including 200 Andeans, 200 Ethiopians, 199 Tibetans, and 200 U.S. (white) individuals.
+
+Sex: nominal variable. The dataset contains 400 female and 399 male individuals.
+
 
 ## Data Visualization
 
 Let's create graphs you think are useful for showcasing the information. First, write below (ideally using bullet points or numbered list in Markdown) what graphs you'd like to see. Then, create at least two exploratory graphs. I'll create one for you first, using ggplot2 package. You may need to change the dataframe name. Create two new code chunks, one per graph. Under each code chunk, write what this graph is showing and why you chose to compare that/those variable(s).
+
+#1-Hemoglobin distribution by group
+
+ggplot(df, aes(x = group, y = hemoglobin, fill = group)) +
+  geom_boxplot(width = 0.6, outlier.size = 1.8, alpha = 0.75) +
+  theme_classic(base_size = 14) +
+  labs(
+    title = "Hemoglobin distribution by population group",
+    subtitle = "Beall et al. (2002)",
+    x = "Population group",
+    y = "Hemoglobin"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title = element_text(face = "bold"),
+    legend.position = "none"
+  )
+
+The first thing I wanted to do was to check the hemoglobin distribution for each group. At first, I saw that the example did exactly that, but when I generated the bar chart it was very confusing and hard to read (which I imagine was the entire point). With that in mind, I decided to keep the same variables but experiment with a different type of graph. Considering that hemoglobin is a continuous variable, I thought boxplots would be a good option to better visualize the data and how the average individual in each population fits within that distribution. 
+
+I originally created a simpler graphic using the basic code and then tried a couple of different versions with the help of AI to write the code and add elements that I thought would either improve visualization or that I was simply curious to learn how to implement. These included things such as centralizing the title, adding or removing the legend, and adding colors to the plot for a cleaner visualization, eventually arriving at this final graphic.
+
+
+
+#2-Hemoglobin distribution by sex
+
+#ggplot(df, aes(x = sex, y = hemoglobin, fill = sex)) +
+  geom_boxplot(width = 0.6, outlier.size = 1.8, alpha = 0.75) +
+  theme_classic(base_size = 14) +
+  labs(
+    title = "Hemoglobin distribution by sex",
+    subtitle = "Beall et al. (2002)",
+    x = "Sex",
+    y = "Hemoglobin"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5),
+    axis.title = element_text(face = "bold"),
+    legend.position = "none"
+  )
+
+The second graphic that I chose was to present the distribution of hemoglobin by sex. My reasoning for this was to check whether variables other than elevation might be influencing the distribution of hemoglobin. For example, whether sex would have a strong correlation with better or worse adaptation. 
+
+
 
 ***Hints***
 
@@ -60,6 +118,12 @@ ggplot(data = df, aes(x = hemoglobin, fill = group)) +
 
 Write a few sentences about the in/dependent variables, identify which of the three variables are independent, and which are dependent.
 
+#In this study, the hemoglobin level was chosen as the dependent variable. The independent variables are population group and sex. The idea is that the dependent variable (hemoglobin) is the effect, and the independent variables, height (represented by the population group in the table) and sex, are being tested as possible causes for this effect.
+
 ## Extending beyond the study
 
 Finally, write a few sentences about what trends you're seeing, and what they might mean. Is there any other information you wish were recorded, that might have helped or extended this study?
+
+My result with the first graphic, hemoglobin concentration for groups, was curious. The Andean population presents very high average levels of hemoglobin, which seems to be associated with adaptation to higher altitudes. However, other groups such as Ethiopian, Tibetan, and U.S. populations have very similar average levels, indicating that this type of adaptation is not necessarily a reality in every high-altitude setting, but rather a case-specific adaptation. This suggests that other groups may deal with altitude in different ways. The second  graphic shows higher levels of hemoglobin concentration in men, suggesting that sex appears to influence hemoglobin levels independently of altitude.
+
+I did not get to read the article in detail or see exactly how the data was collected, but I would be curious to have more information about factors such as how long the people involved in the study had lived in each location or for how many generations. This would help determine whether the length of time spent at high altitude could also help explain population differences and the higher levels of hemoglobin observed in some groups.
